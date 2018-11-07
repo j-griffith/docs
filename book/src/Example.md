@@ -10,7 +10,7 @@ section shows how to deploy and use that driver in Kubernetes.
 This is tested with Kubernetes v1.12. Set the following feature gate flags to true:
 
 ```
---feature-dates=CSIPersistentVolume=true,MountPropagation=true,VolumeSnapshotDataSource=true,KubeletPluginsWatcher=true,CSINodeInfo=true,CSIDriverRegistry=true
+--feature-gates=CSIPersistentVolume=true,MountPropagation=true,VolumeSnapshotDataSource=true,KubeletPluginsWatcher=true,CSINodeInfo=true,CSIDriverRegistry=true
 ```
 
 `CSIPersistentVolume` is enabled by default in v1.10. `MountPropagation` is enabled by default
@@ -21,10 +21,10 @@ in v1.12.
 CRDs needs to be created manually for `CSIDriverRegistry` and `CSINodeInfo`.
 
 ```
-$ kubectl create -f https://raw.githubusercontent.com/kubernetes/csi-api/master/pkg/crd/testdata/csidriver.yaml --validate=false
+$ kubectl create -f https://raw.githubusercontent.com/kubernetes/csi-api/master/pkg/crd/manifests/csidriver.yaml --validate=false
 customresourcedefinition.apiextensions.k8s.io/csidrivers.csi.storage.k8s.io created
 
-$ kubectl create -f https://raw.githubusercontent.com/kubernetes/csi-api/master/pkg/crd/testdata/csinodeinfo.yaml --validate=false
+$ kubectl create -f https://raw.githubusercontent.com/kubernetes/csi-api/master/pkg/crd/manifests/csinodeinfo.yaml --validate=false
 customresourcedefinition.apiextensions.k8s.io/csinodeinfos.csi.storage.k8s.io created
 ```
 
@@ -170,7 +170,7 @@ Note: This example is derived from [using-livenessprobe](https://github.com/kube
 ...
 #
 # Spec for liveness probe sidecar container
-# 
+#
  - name: liveness-probe
     imagePullPolicy: Always
     volumeMounts:
